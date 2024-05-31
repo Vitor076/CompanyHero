@@ -7,7 +7,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get()
-  async searchZipcode(@Query() query: UserInput): Promise<any> {
-    return this.userService.getWeatherService(query);
+  async getMusicRecommended(@Query() query: UserInput): Promise<any> {
+    return this.userService.getMusicRecommended(query);
   }
 }

@@ -16,7 +16,7 @@ export class ProxyService {
     notFound = false,
   ): Promise<T> {
     const response: any = await lastValueFrom(
-      this.httpService.get<T>(endpoint, { ...headers, params: queryParams }).pipe(
+      this.httpService.get<T>(endpoint, { headers, params: queryParams }).pipe(
         catchError((error: AxiosError) => {
           if (notFound && error.response?.status === 404) {
             return Promise.resolve(null);

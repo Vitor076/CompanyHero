@@ -13,4 +13,16 @@ export class EnvironmentVariables {
 
   @IsString()
   OPEN_WEATHER_MAP_URL: string;
+
+  @IsString()
+  SPOTIFY_CLIENT_ID: string;
+
+  @IsString()
+  SPOTIFY_CLIENT_SECRET: string;
+
+  @IsString()
+  SPOTIFY_API_URL: string;
+
+  @IsString()
+  SPOTIFY_ACCESS_TOKEN_URL: string;
 }

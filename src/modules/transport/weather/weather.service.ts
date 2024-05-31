@@ -1,10 +1,10 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { HttpException, Injectable, Logger } from '@nestjs/common';
 import { ProxyService } from 'src/common/proxy/proxy.service';
 import { ConfigService } from '@nestjs/config';
 import { OPEN_WEATHER_KEY, OPEN_WEATHER_GEOCODING_URL, OPEN_WEATHER_MAP_URL } from './weather.constant';
-import { UserGeocodingDto } from './dtos/Geocoding.dto';
 import { WeatherMap, WeatherMapDto } from './dtos/weatherMap.dto';
 import { IWeatherService } from './interfaces/weather.service.interface';
+import { UserGeocodingDto } from './dtos/geocoding.dto';
 
 @Injectable()
 export class WeatherService implements IWeatherService {
@@ -33,7 +33,7 @@ export class WeatherService implements IWeatherService {
       }
       this.logger.log('invalid cityName');
     } catch (error) {
-      throw error.stack;
+      throw new HttpException('Failed to Get Geocoding', error.response.status);
     }
   }
 
@@ -53,7 +53,7 @@ export class WeatherService implements IWeatherService {
       }
       this.logger.log('Error to get Temp');
     } catch (error) {
-      throw error.stack;
+      throw new HttpException('Failed to Get UserWeather', error.response.status);
     }
   }
 }

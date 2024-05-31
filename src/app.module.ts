@@ -6,8 +6,7 @@ import { envValidate } from './common/config/env.validation';
 import { HealthController } from './modules/health/health.controller';
 import { WeatherModule } from './modules/transport/weather/weather.module';
 import { UserModule } from './modules/user/user.module';
-
-
+import { SpotifyModule } from './modules/transport/spotify/spotify.module';
 
 @Module({
   controllers: [HealthController],
@@ -19,7 +18,8 @@ import { UserModule } from './modules/user/user.module';
     }),
     TerminusModule,
     WeatherModule,
-    UserModule
+    SpotifyModule,
+    UserModule,
   ],
 })
 export class AppModule {}
