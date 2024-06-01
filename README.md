@@ -1,12 +1,12 @@
-API de CEP - Documentação
+API de Desafio CompanyHero - Documentação
 
-API de CEP
+API de CompanyHero
 ==========
 
-Sistema de Busca de CEP
+Sistema de recomendação de musica
 -----------------------
 
-O sistema de busca de CEP é projetado para obter informações de endereço com base em um código postal fornecido. Este documento descreve o funcionamento do sistema, a recuperação de informações de endereço e as abordagens utilizadas.
+Sistema de recomendação de musica é projetado para obter playlist de musicas depedendo do clima da cidade fornecida. Este documento descreve o funcionamento do sistema, as abordagens utilizadas.
 
 Documentação detalhada local
 ----------------------------
@@ -23,8 +23,6 @@ $ npm run start
 # watch mode
 $ npm run start:dev
 
-# production mode
-$ npm run start:prod
 ```
 
 ## Test
@@ -66,58 +64,66 @@ O sistema consiste em um conjunto de componentes, incluindo um controlador, serv
 
 ### Controlador
 
-O ZipCodeController é o componente responsável por receber requisições HTTP e direcioná-las ao serviço apropriado. Ele possui um endpoint searchZipcode que recebe uma requisição GET com um parâmetro zipCode. O controlador utiliza o ZipCodeService para processar a requisição e retornar as informações de endereço.
+O UserController é o componente responsável por receber requisições HTTP e direcioná-las ao serviço apropriado. Ele possui um endpoint getMusicRecommended que recebe uma requisição GET com um parâmetro UserInput. O controlador utiliza o UserServoce para processar a requisição e retornar as informações das playlists de musica.
 
 ### Serviços
 
-O ZipCodeService é o componente central que gerencia a lógica de negócio do sistema. Ele é responsável por validar o código postal do usuário, recuperar as informações de endereço e interagir com o repositório de dados para buscar ou atualizar informações de CEP.
+O UserService é o componente central que gerencia a lógica de negócio do sistema. Ele é responsável por chamar a API de Weather e pegar o clima da cidade e a API do spotify para recomendar a playlist a partir do clima fornecida pela Weather.
 
-### Repositórios
+### Transporte
 
-O ZipCodeRepository é o componente responsável por gerenciar o armazenamento e recuperação de dados do sistema. Ele interage diretamente com o banco de dados e utiliza o ZipCodeSchema para definir a estrutura dos dados.
+O WeatherService é o componente responsável por chama a API de Weather e resgatar a partir da cidade fornecida o clima atual da cidade, usando o module weather para exportar o service.
 
-Recuperação de informações de endereço
---------------------------------------
+O SpotifyService é o componente responsável por chama a API de Spotify e resgatar a partir do clima forncedio a playlist de musica, usando o module spotify para exportar o service.
 
-A recuperação das informações de endereço é feita pelo ZipCodeService, que utiliza o ZipCodeRepository para buscar o endereço no banco de dados com base no código postal fornecido. Caso o endereço não seja encontrado, uma exceção BadRequestException é lançada com a mensagem "Unable to find the ZipCode".
 
-Abordagens Utilizadas
+Justifique a escolha do padrão de API para o serviço
 ---------------------
 
-A abordagem utilizada para a recuperação das informações de endereço baseia-se na busca direta no banco de dados usando o código postal fornecido. Esta abordagem permite
+A abordagem utilizada foi o padrão de projeto recomendado pelo framework NestJs : https://nestjs.com/
 
 Além disso, a estrutura modular do sistema permite a fácil manutenção e atualização dos componentes, garantindo que o sistema possa ser adaptado a novas regras e requisitos conforme necessário.
 
-API de CEP
-----------
+Justifique o uso de serviços de terceiros
+---------------------
 
-Esta API permite gerenciar a busca de informações de endereço com base em um CEP fornecido. Através desta API, você pode buscar informações de endereço de um CEP específico.
+utilizado https://openweathermap.org/api para pegar o clima da cidade fornecida
+
+uitlizado https://developer.spotify.com/ para pegar a playlist das musicas
+
 
 ### Endpoints
 
-1.  **GET /zipcode/:zipCode**
+1.  **GET /user/:cityName**
 
-    Busca as informações de endereço com base no CEP fornecido.
+    Retorna a playlist de musica a partir do clima da cidade fornecida.
 
     *   Parâmetros:
-        *   zipCode: Código postal (CEP)
+        *   cityName: Nome da cidade
     *   Resposta:
-        *   200 OK: ZipCodeDTO
-        *   400 Bad Request: Mensagem de erro
+        *  {
+    "name": "Honky Chateau",
+    "uri": "https://open.spotify.com/album/2ei2X6ghPnw7YRwQtAH075"
+  },
+  {
+    "name": "Rock Danger, Vol. 1",
+    "uri": "https://open.spotify.com/album/10NgAPEXrO27p2uhmuZgyu"
+  },
+  {
+    "name": "primavera pop",
+    "uri": "https://open.spotify.com/album/0Vcd3Sy7RgcDwoSQe1cVwx"
+  },
+  {
+    "name": "Off the Wall",
+    "uri": "https://open.spotify.com/album/2ZytN2cY4Zjrr9ukb2rqTP"
+  },
+  {
+    "name": "best pop 00s",
+    "uri": "https://open.spotify.com/album/5E6En1DV5ccimVjSDYyYl4"
+  }
 
-### Classes e serviços
-
-*   ZipCodeController: Controlador que gerencia as rotas da API.
-*   ZipCodeService: Serviço que lida com a lógica de negócios relacionada à busca de CEP.
-*   ZipCodeRepository: Repositório para gerenciar a interação com o banco de dados.
 
 Conclusão
 ---------
 
-Em conclusão, o código apresentado implementa um sistema de busca de informações de endereço que permite aos usuários fornecer um CEP e obter informações detalhadas do endereço relacionado.
-
-O ZipCodeController gerencia as requisições HTTP, enquanto o ZipCodeService lida com a lógica de negócio, incluindo a validação do CEP do usuário e a recuperação das informações de endereço.
-
-O ZipCodeRepository é responsável pela interação com o banco de dados e a persistência dos dados do CEP, enquanto o ZipCodeSchema define a estrutura dos dados armazenados no banco de dados.
-
-A aplicação é desenvolvida utilizando o framework Nest.js e fornece uma solução escalável, fácil de manter e oferece uma base sólida para futuras melhorias e expansões, conforme necessário.
+Em conclusão, o código apresentado implementa um sistema de busca a partir do clima da cidade fornecida, a playlist de musicas do spotify
