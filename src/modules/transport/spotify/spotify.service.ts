@@ -1,6 +1,6 @@
 import { Injectable, HttpException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { ProxyService } from 'src/common/proxy/proxy.service';
+import { ProxyService } from '../../../common/proxy/proxy.service';
 import {
   SPOTIFY_ACCESS_TOKEN_URL,
   SPOTIFY_API_URL,

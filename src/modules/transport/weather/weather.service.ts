@@ -1,5 +1,5 @@
 import { HttpException, Injectable, Logger } from '@nestjs/common';
-import { ProxyService } from 'src/common/proxy/proxy.service';
+import { ProxyService } from '../../../common/proxy/proxy.service';
 import { ConfigService } from '@nestjs/config';
 import { OPEN_WEATHER_KEY, OPEN_WEATHER_GEOCODING_URL, OPEN_WEATHER_MAP_URL } from './weather.constant';
 import { WeatherMap, WeatherMapDto } from './dtos/weatherMap.dto';
@@ -19,7 +19,7 @@ export class WeatherService implements IWeatherService {
     this.weatherMapUrl = this.configService.get<string>(OPEN_WEATHER_MAP_URL);
   }
 
-  private async getUserGeocoding(cityName: string): Promise<Partial<UserGeocodingDto>> {
+  async getUserGeocoding(cityName: string): Promise<Partial<UserGeocodingDto>> {
     try {
       const userGeocoding = await this.proxyService.get<UserGeocodingDto>(this.weatherGeocodingUrl, {
         q: cityName,
