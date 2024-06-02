@@ -12,8 +12,6 @@ COPY ./tsconfig.json .
 COPY ./tsconfig.build.json .
 COPY ./nest-cli.json .
 
-COPY ./build/entrypoint.sh entrypoint.sh
-
 RUN npm run build
 
 FROM node:17-alpine
