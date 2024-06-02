@@ -9,6 +9,7 @@
     "prepare": "npm run config",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
+    "build": "nest build",
     "start:dev": "nest start --watch",
     "config": "npm install --save-dev husky @commitlint/cli @commitlint/config-conventional && npx husky install && npm i -D @compodoc/compodoc",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
