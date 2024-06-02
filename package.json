@@ -1,8 +1,8 @@
 {
-  "name": "liga-onb-apu-template",
+  "name": "CompanyHero",
   "version": "0.0.1",
-  "description": "this is a boilerplate to start a new project",
-  "author": "@pathbit",
+  "description": "test CompanyHero",
+  "author": "VitorMoreira",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
