@@ -23,7 +23,6 @@ export class ProxyService {
           }
           this.logger.error(error.config?.url);
           this.logger.error(error.response?.data || error.message);
-          throw new InternalServerErrorException();
         }),
       ),
     );
