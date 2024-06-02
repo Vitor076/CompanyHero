@@ -1,25 +1,23 @@
-FROM node:17-alpine as builder
+# Use the official Node.js image as the base image
+FROM node:14-alpine
 
-WORKDIR /opt/app
+# Set the working directory in the container
+WORKDIR /usr/src/app
 
+# Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
 
-RUN npm install -g @nestjs/cli@9.0.0
-RUN npm install --omit=dev
+# Install dependencies
+RUN npm install
 
-COPY ./src ./src
-COPY ./tsconfig.json .
-COPY ./tsconfig.build.json .
-COPY ./nest-cli.json .
+# Copy the rest of the application code to the working directory
+COPY . .
 
+# Build the NestJS application
 RUN npm run build
 
-FROM node:17-alpine
+# Expose the port the app runs on
+EXPOSE 3000
 
-WORKDIR /opt/app
-
-COPY --from=builder /opt/app/node_modules /opt/app/node_modules
-COPY --from=builder /opt/app/dist /opt/app/dist
-COPY --from=builder /opt/app/entrypoint.sh /opt/app/entrypoint.sh
-
-ENTRYPOINT ["/opt/app/entrypoint.sh"]
+# Define the command to run the app
+CMD ["npm", "run", "start:prod"]
