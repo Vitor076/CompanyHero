@@ -18,7 +18,7 @@ export class ProxyService {
     const response: any = await lastValueFrom(
       this.httpService.get<T>(endpoint, { headers, params: queryParams }).pipe(
         catchError((error: AxiosError) => {
-          if (notFound && error.response?.status === 404) {
+          if (notFound && error?.response?.status === 404) {
             return Promise.resolve(null);
           }
           this.logger.error(error.config?.url);

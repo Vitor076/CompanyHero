@@ -33,7 +33,7 @@ export class WeatherService implements IWeatherService {
       }
       this.logger.log('invalid cityName');
     } catch (error) {
-      throw new HttpException('Failed to Get Geocoding', error.response.status);
+      throw new HttpException('Failed to Get Geocoding invalid City ', error?.response);
     }
   }
 
@@ -53,7 +53,7 @@ export class WeatherService implements IWeatherService {
       }
       this.logger.log('Error to get Temp');
     } catch (error) {
-      throw new HttpException('Failed to Get UserWeather', error.response.status);
+      throw new HttpException('Failed to Get UserWeather', error?.response);
     }
   }
 }

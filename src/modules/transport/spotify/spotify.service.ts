@@ -40,7 +40,7 @@ export class SpotifyService {
       this.accessToken = response.data.access_token;
       return this.accessToken;
     } catch (error) {
-      throw new HttpException('Failed to fetch access token from Spotify', error?.response?.status);
+      throw new HttpException('Failed to fetch access token from Spotify', error?.response);
     }
   }
 
@@ -63,7 +63,7 @@ export class SpotifyService {
       });
       return userRecommended;
     } catch (error) {
-      throw new HttpException('Failed to fetch data from Spotify API', error?.response?.status);
+      throw new HttpException('Failed to fetch data from Spotify API', error?.response);
     }
   }
 
