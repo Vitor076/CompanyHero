@@ -123,6 +123,11 @@ uitlizado https://developer.spotify.com/ para pegar a playlist das musicas
   }
 
 
+Swagger
+---------
+
+https://companyhero.onrender.com/swagger
+
 Conclusão
 ---------
 
